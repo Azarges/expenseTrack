@@ -39,7 +39,7 @@ export default function ProfileAvatar({
 
       // envoi du nom de fichier et de l'image sur le stockage supabase
       let { data, error } = await supabase.storage
-        .from("expenses-track")
+        .from("CDA")
         .upload(fileName, file);
 
       // gestion de la possible erreur
@@ -47,7 +47,7 @@ export default function ProfileAvatar({
 
       // récupération de l'URL de l'image insérée
       const { data: url } = await supabase.storage
-        .from("expenses-track")
+        .from("CDA")
         .getPublicUrl(fileName);
 
       // requête HTTP pour modifier l'avatar en BDD, l'identifiant est nécessaire à la requête dans le backend
@@ -83,16 +83,16 @@ export default function ProfileAvatar({
           <img
             src={avatarSrc}
             alt="Profile"
-            className="h-full w-full object-cover"
+            className="object-cover w-full h-full"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center bg-gray-200">
+          <div className="flex items-center justify-center w-full h-full bg-gray-200">
             <User size={64} className="text-gray-400" />
           </div>
         )}
 
         {isEditing && (
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black opacity-0 bg-opacity-40 hover:opacity-100">
             <Camera size={36} className="text-white" />
           </div>
         )}
@@ -107,7 +107,7 @@ export default function ProfileAvatar({
             accept="image/*"
             className="hidden"
           />
-          <p className="text-sm text-blue-500 mt-2">Click to change avatar</p>
+          <p className="mt-2 text-sm text-blue-500">Click to change avatar</p>
         </>
       )}
     </div>
